@@ -79,7 +79,7 @@ function createActionButton(action, label, filter)
   return button;
 }
 
-function createRecord(request, filter, template)
+function createRecord(request, filter, template, mlinference)
 {
   const row = document.importNode(template, true);
   row.dataset.type = request.type;
@@ -89,6 +89,13 @@ function createRecord(request, filter, template)
 
   const urlElement = row.querySelector(".resource-link");
   const actionWrapper = row.querySelector(".action-wrapper");
+
+
+  if (mlinference)
+  {
+    row.querySelector(".mlinference").textContent = mlinference.inference;
+    row.querySelector(".mldecision").textContent = mlinference.decision;
+  }
 
   if (request.url)
   {
@@ -228,12 +235,12 @@ document.addEventListener("DOMContentLoaded", () =>
     {
       case "add-record":
         table.appendChild(createRecord(message.request, message.filter,
-                                       template));
+                                       template, message.mlinference));
         break;
 
       case "update-record":
         const oldRow = table.getElementsByTagName("tr")[message.index];
-        const newRow = createRecord(message.request, message.filter, template);
+        const newRow = createRecord(message.request, message.filter, template, message.mlinference);
         oldRow.parentNode.replaceChild(newRow, oldRow);
         newRow.classList.add("changed");
         container.classList.add("has-changes");

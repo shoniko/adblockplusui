@@ -162,7 +162,7 @@ body.dark #items tr[data-state=whitelisted]
   font-style: italic
 }
 
-.request-wrapper, .filter-wrapper
+.request-wrapper, .filter-wrapper ml-wrapper
 {
   display: flex;
   height: 100%;
@@ -217,7 +217,7 @@ tr:not(:hover) .action
 
 .domain, .origin,
 .changed .request-wrapper,
-.changed .filter-wrapper,
+.changed .filter-wrapper ml-wrapper,
 .changed .type
 {
   opacity: 0.6;
